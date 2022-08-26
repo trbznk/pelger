@@ -1,7 +1,5 @@
 import numpy as np
-from numpy.lib.arraysetops import unique
 import graphviz
-import argparse
 
 from typing import List, Tuple
 
@@ -23,12 +21,11 @@ def compile(ts: List[int], w: int = 1, compress: bool = True) -> Tuple[np.ndarra
 
     if not isinstance(ts, np.ndarray):
         ts = np.array(ts)
-    
+
     m = ts.max()+1
 
     fsm = empty_state(m)
-    amount = empty_amount(m)    
-    
+    amount = empty_amount(m)
     state = 0
     next_state = 1
     for i in range(len(ts)-w+1):
@@ -67,7 +64,7 @@ def run():
 
 if __name__ == "__main__":
     ts = [1, 2, 3, 2]
-    ts = np.random.randint(0, 5, 100000)
+    ts = np.random.randint(0, 5, 1_000)
 
     fsm, amount = compile(ts, w=5, compress=True)
     dot = graphviz.Digraph()
